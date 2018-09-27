@@ -12,10 +12,9 @@
 		1470D3BA21420F3C00A3DF3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1470D3B821420F3C00A3DF3D /* Main.storyboard */; };
 		1470D3BC21420F3F00A3DF3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1470D3BB21420F3F00A3DF3D /* Assets.xcassets */; };
 		1470D3BF21420F3F00A3DF3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1470D3BD21420F3F00A3DF3D /* LaunchScreen.storyboard */; };
-		1470D3C721423FDC00A3DF3D /* GenderNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1470D3C621423FDC00A3DF3D /* GenderNet.mlmodel */; };
 		1470D3C92142492D00A3DF3D /* Resnet50.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1470D3C82142492D00A3DF3D /* Resnet50.mlmodel */; };
+		14A0AC28215C8508004B176A /* Vegetationv2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 14A0AC27215C8508004B176A /* Vegetationv2.mlmodel */; };
 		14AEF23921510B1F00111ABC /* Vegetation.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 14AEF23821510B1F00111ABC /* Vegetation.mlmodel */; };
-		14AEF25F215226AF00111ABC /* CameraButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AEF25E215226AF00111ABC /* CameraButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,10 +25,9 @@
 		1470D3BB21420F3F00A3DF3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1470D3BE21420F3F00A3DF3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1470D3C021420F3F00A3DF3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1470D3C621423FDC00A3DF3D /* GenderNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = GenderNet.mlmodel; path = ../../GenderNet.mlmodel; sourceTree = "<group>"; };
 		1470D3C82142492D00A3DF3D /* Resnet50.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = Resnet50.mlmodel; path = ../../Resnet50.mlmodel; sourceTree = "<group>"; };
+		14A0AC27215C8508004B176A /* Vegetationv2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = Vegetationv2.mlmodel; path = ../../../Documents/Vegetationv2.mlmodel; sourceTree = "<group>"; };
 		14AEF23821510B1F00111ABC /* Vegetation.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = Vegetation.mlmodel; path = ../../../Documents/Vegetation.mlmodel; sourceTree = "<group>"; };
-		14AEF25E215226AF00111ABC /* CameraButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,10 +66,9 @@
 				1470D3BB21420F3F00A3DF3D /* Assets.xcassets */,
 				1470D3BD21420F3F00A3DF3D /* LaunchScreen.storyboard */,
 				1470D3C021420F3F00A3DF3D /* Info.plist */,
-				1470D3C621423FDC00A3DF3D /* GenderNet.mlmodel */,
 				14AEF23821510B1F00111ABC /* Vegetation.mlmodel */,
 				1470D3C82142492D00A3DF3D /* Resnet50.mlmodel */,
-				14AEF25E215226AF00111ABC /* CameraButton.swift */,
+				14A0AC27215C8508004B176A /* Vegetationv2.mlmodel */,
 			);
 			path = SmartCamera;
 			sourceTree = "<group>";
@@ -147,11 +144,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1470D3C721423FDC00A3DF3D /* GenderNet.mlmodel in Sources */,
 				1470D3B721420F3C00A3DF3D /* ViewController.swift in Sources */,
+				14A0AC28215C8508004B176A /* Vegetationv2.mlmodel in Sources */,
 				14AEF23921510B1F00111ABC /* Vegetation.mlmodel in Sources */,
 				1470D3C92142492D00A3DF3D /* Resnet50.mlmodel in Sources */,
-				14AEF25F215226AF00111ABC /* CameraButton.swift in Sources */,
 				1470D3B521420F3C00A3DF3D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

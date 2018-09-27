@@ -21,23 +21,25 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     @IBAction func scanBtn(_ sender: UIButton) {
         print("scan button tapped")
-        ScanBtn.isEnabled = false
-        StopScanBtn.isEnabled = true
+        ScanBtn.isHidden = true
+        StopScanBtn.isHidden = false
         dataFrames.removeAll()
     }
     
 
     @IBAction func stopScan(_ sender: Any) {
-        print(StopScanBtn.isEnabled)
-        StopScanBtn.isEnabled = false
-        ScanBtn.isEnabled = true
-        pushNoti(alert:"Detected Object", data: dataFrames)
+        print(StopScanBtn.isHidden)
+        StopScanBtn.isHidden = true
+        ScanBtn.isHidden = false
+        if (!dataFrames.isEmpty){
+            pushNoti(alert:"Detected Object", data: dataFrames)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        StopScanBtn.isEnabled = false
+        StopScanBtn.isHidden = true
         
         //here is where we init camera
         let captureSession = AVCaptureSession()
@@ -67,7 +69,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         print(dataFrames)
         guard let pixel_buffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {return}
         
-        guard let model = try? VNCoreMLModel(for: Vegetation().model) else {return}
+        guard let model = try? VNCoreMLModel(for: Vegetationv2().model) else {return}
         let request = VNCoreMLRequest(model: model)
         { (finishedReq, err) in
             
