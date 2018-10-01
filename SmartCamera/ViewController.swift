@@ -33,6 +33,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         ScanBtn.isHidden = false
         if (!dataFrames.isEmpty){
             pushNoti(alert:"Detected Object", data: dataFrames)
+            pushDB()
         }
     }
     
@@ -69,7 +70,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         print(dataFrames)
         guard let pixel_buffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {return}
         
-        guard let model = try? VNCoreMLModel(for: Vegetationv2().model) else {return}
+        guard let model = try? VNCoreMLModel(for: Vegetationsm().model) else {return}
         let request = VNCoreMLRequest(model: model)
         { (finishedReq, err) in
             
@@ -97,6 +98,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 }
 
 //todo: create button :time towerdid and frame data
+//todo: write to json objects
 func pushNoti(alert: String, data: [Array<String>]) {
     let headers = [
         "Content-Type": "application/json",
@@ -129,5 +131,48 @@ func pushNoti(alert: String, data: [Array<String>]) {
         }
     })
     
+    dataTask.resume()
+}
+
+func pushDB(){
+    let headers = [
+        "Authorization": "Bearer 7153e5144e72f4949ccf777a387c35",
+        "Content-Type": "application/json;charset=utf-8",
+        "Accept": "*/*",
+        "Cache-Control": "no-cache",
+        "Postman-Token": "c9d58bcf-0510-47c8-acf0-78816e35fadb"
+    ]
+    
+    let postData = NSData(data: """
+    {
+        "mode": "sync",
+        "messageType": "35970b0909ffb71c3f4f",
+        "messages": [
+            {
+            "timestamp": "1538372855",
+            "description": "test 123 123 nani nani",
+            "incident_code": "TST"
+            }
+        ]
+    }
+    """.data(using: String.Encoding.utf8)!)
+
+    let request = NSMutableURLRequest(url: NSURL(string: "https://iotmmsp2000319942trial.hanatrial.ondemand.com/com.sap.iotservices.mms/v1/api/http/data/80c04384-651e-4420-9ed4-a56f52d0c805")! as URL,
+                                      cachePolicy: .useProtocolCachePolicy,
+                                      timeoutInterval: 10.0)
+    request.httpMethod = "POST"
+    request.allHTTPHeaderFields = headers
+    request.httpBody = postData as Data
+
+    let session = URLSession.shared
+    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+        if (error != nil) {
+            print(error)
+        } else {
+            let httpResponse = response as? HTTPURLResponse
+            print(httpResponse)
+        }
+    })
+
     dataTask.resume()
 }
