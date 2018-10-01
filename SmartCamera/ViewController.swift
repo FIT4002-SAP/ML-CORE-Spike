@@ -33,8 +33,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         StopScanBtn.isHidden = true
         ScanBtn.isHidden = false
         if (!dataFrames.isEmpty){
-            pushNoti(alert:"Detected Object", data: dataFrames)
-            pushDB()
+            pushNoti(alert:"Detected Object", data_frames: dataFrames[0])
+            pushDB(timestamp: String(Int(NSDate().timeIntervalSince1970.rounded())),
+                   data_frames: "\(dataFrames[0][0]),\(dataFrames[0][1])")
         }
     }
     
@@ -42,7 +43,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         StopScanBtn.isHidden = true
-
         
         //here is where we init camera
         let captureSession = AVCaptureSession()
@@ -85,7 +85,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 print(firstObservation.identifier, firstObservation.confidence)
 
                 let obj_name = firstObservation.identifier
-                if (obj_name.elementsEqual("vegetation")){
+                if (obj_name.elementsEqual("vegetation") && self.ScanBtn.isHidden){
                     let string = obj_name
                     let utterance = AVSpeechUtterance(string: string)
                     utterance.voice = AVSpeechSynthesisVoice(language: "ta-IN")
@@ -93,7 +93,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     let synth = AVSpeechSynthesizer()
                     synth.speak(utterance)
                     
-                    self.dataFrames.append([obj_name,"\(firstObservation.confidence)",Date().description(with: .current)])
+                    self.dataFrames.append([obj_name,"\(firstObservation.confidence)"])
                 }
             }
         }
@@ -102,8 +102,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 }
 
 //todo: create button :time towerdid and frame data
-//todo: write to json objects
-func pushNoti(alert: String, data: [Array<String>]) {
+func pushNoti(alert: String, data_frames: [String]) {
     let headers = [
         "Content-Type": "application/json",
         "Authorization": "Basic Zml0NDAwMi5pbnRlbGxpZ2VuY2VAZ21haWwuY29tOjIwMThGSVQ0MDAyPw==",
@@ -112,7 +111,7 @@ func pushNoti(alert: String, data: [Array<String>]) {
     ]
     let parameters = [
         "alert": "\(alert)",
-        "data": "\(data)",
+        "data": "\(data_frames)",
         "sound": "default"
         ] as [String : Any]
     
@@ -138,7 +137,7 @@ func pushNoti(alert: String, data: [Array<String>]) {
     dataTask.resume()
 }
 
-func pushDB(){
+func pushDB(timestamp: String, data_frames: String){
     let headers = [
         "Authorization": "Bearer 7153e5144e72f4949ccf777a387c35",
         "Content-Type": "application/json;charset=utf-8",
@@ -153,9 +152,9 @@ func pushDB(){
         "messageType": "35970b0909ffb71c3f4f",
         "messages": [
             {
-            "timestamp": "1538372855",
-            "description": "test 123 123 nani nani",
-            "incident_code": "TST"
+            "timestamp": "\(timestamp)",
+            "description": "\(data_frames)",
+            "incident_code": "Vegetation"
             }
         ]
     }
