@@ -17,24 +17,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VLE-CD-bC6">
-                                <rect key="frame" x="322" y="866" width="125" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="stop"/>
-                                <connections>
-                                    <action selector="stopScan:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0QT-PS-yC5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0o-xD-cf2">
-                                <rect key="frame" x="318" y="864" width="132" height="122"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="start"/>
-                                <connections>
-                                    <action selector="scanBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5yu-E8-oAY"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRR-Aq-rRx" userLabel="Button Container">
+                                <rect key="frame" x="284" y="774" width="200" height="200"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VLE-CD-bC6">
+                                        <rect key="frame" x="49" y="49" width="102" height="102"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="stop"/>
+                                        <connections>
+                                            <action selector="stopScan:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0QT-PS-yC5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V0o-xD-cf2">
+                                        <rect key="frame" x="49" y="49" width="102" height="102"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="start"/>
+                                        <connections>
+                                            <action selector="scanBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5yu-E8-oAY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="G8F-uo-wEq"/>
+                                    <constraint firstAttribute="width" constant="200" id="z3R-F8-sag"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="LRR-Aq-rRx" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="HrA-VG-w7t"/>
+                            <constraint firstAttribute="bottom" secondItem="LRR-Aq-rRx" secondAttribute="bottom" constant="50" id="MSW-6h-woq"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
@@ -44,7 +58,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-298.56115107913672" y="-97.661870503597129"/>
+            <point key="canvasLocation" x="-299.21875" y="-97.8515625"/>
         </scene>
     </scenes>
     <resources>

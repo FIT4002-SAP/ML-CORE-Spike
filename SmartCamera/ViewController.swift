@@ -44,7 +44,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         //here is where we init camera
         let captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .photo
+        captureSession.sessionPreset = .hd1920x1080
+        
         
         guard let captureDevice = AVCaptureDevice.default(for: .video) else {return}
         guard let input = try? AVCaptureDeviceInput(device: captureDevice) else {return}
@@ -70,7 +71,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         print(dataFrames)
         guard let pixel_buffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {return}
         
-        guard let model = try? VNCoreMLModel(for: Vegetationsm().model) else {return}
+        guard let model = try? VNCoreMLModel(for: Vegetation().model) else {return}
         let request = VNCoreMLRequest(model: model)
         { (finishedReq, err) in
             
