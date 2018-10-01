@@ -15,6 +15,7 @@ import Foundation
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     var dataFrames: [Array<String>] = []
 
+    @IBOutlet weak var buttonContainer: UIView!
     @IBOutlet weak var ScanBtn: UIButton!
     @IBOutlet weak var StopScanBtn: UIButton!
 
@@ -41,10 +42,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         StopScanBtn.isHidden = true
+
         
         //here is where we init camera
         let captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .hd1920x1080
+        captureSession.sessionPreset = .photo
         
         
         guard let captureDevice = AVCaptureDevice.default(for: .video) else {return}
@@ -58,9 +60,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         view.layer.addSublayer(previewLayer)
         previewLayer.frame = view.frame
+        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         
-        self.view.bringSubviewToFront(StopScanBtn)
-        self.view.bringSubviewToFront(ScanBtn)
+        self.view.bringSubviewToFront(buttonContainer)
+
         
         let data_output = AVCaptureVideoDataOutput()
         data_output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "video_queue"))
