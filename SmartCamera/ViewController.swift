@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import AVKit //audio visual kit
+import AVKit
 import Vision
-import AVFoundation //textToSpeech
+import AVFoundation
 import Foundation
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -27,7 +27,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         dataFrames.removeAll()
     }
     
-
     @IBAction func stopScan(_ sender: Any) {
         print(StopScanBtn.isHidden)
         StopScanBtn.isHidden = true
@@ -69,7 +68,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         data_output.setSampleBufferDelegate(self, queue: DispatchQueue(label: "video_queue"))
         captureSession.addOutput(data_output)
     }
-
+    
+    /**
+     This function iterates through every frame and checks if a object element 'vegetation'
+     exists and adds dataframes to a queue when the confidence level is above the threshold value.
+     **/
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         print(dataFrames)
         guard let pixel_buffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {return}
@@ -81,15 +84,14 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             guard let results = finishedReq.results as? [VNClassificationObservation] else {return}
             guard let firstObservation = results.first else {return}
             
-            if (firstObservation.confidence > 0.6){
+            if (firstObservation.confidence > 0.8){
                 print(firstObservation.identifier, firstObservation.confidence)
 
                 let obj_name = firstObservation.identifier
                 if (obj_name.elementsEqual("vegetation") && self.ScanBtn.isHidden){
                     let string = obj_name
                     let utterance = AVSpeechUtterance(string: string)
-                    utterance.voice = AVSpeechSynthesisVoice(language: "ta-IN")
-//                    pushNoti(item_name: obj_name)
+                    utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
                     let synth = AVSpeechSynthesizer()
                     synth.speak(utterance)
                     
@@ -99,83 +101,4 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
         try? VNImageRequestHandler(cvPixelBuffer: pixel_buffer, options: [:]).perform([request])
     }
-}
-
-//todo: create button :time towerdid and frame data
-func pushNoti(alert: String, data_frames: [String]) {
-    let headers = [
-        "Content-Type": "application/json",
-        "Authorization": "Basic Zml0NDAwMi5pbnRlbGxpZ2VuY2VAZ21haWwuY29tOjIwMThGSVQ0MDAyPw==",
-        "Cache-Control": "no-cache",
-        "Postman-Token": "529f2661-840b-401c-b6d0-a45ce6face2a"
-    ]
-    let parameters = [
-        "alert": "\(alert)",
-        "data": "\(data_frames)",
-        "sound": "default"
-        ] as [String : Any]
-    
-    guard let postData = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {return}
-    
-    let request = NSMutableURLRequest(url: NSURL(string: "https://hcpms-p2000319942trial.hanatrial.ondemand.com/restnotification/application/com.sap.iot.manager/")! as URL,
-                                      cachePolicy: .useProtocolCachePolicy,
-                                      timeoutInterval: 10.0)
-    request.httpMethod = "POST"
-    request.allHTTPHeaderFields = headers
-    request.httpBody = postData as Data
-    
-    let session = URLSession.shared
-    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-        if (error != nil) {
-            print(error)
-        } else {
-            let httpResponse = response as? HTTPURLResponse
-            print(httpResponse)
-        }
-    })
-    
-    dataTask.resume()
-}
-
-func pushDB(timestamp: String, data_frames: String){
-    let headers = [
-        "Authorization": "Bearer 7153e5144e72f4949ccf777a387c35",
-        "Content-Type": "application/json;charset=utf-8",
-        "Accept": "*/*",
-        "Cache-Control": "no-cache",
-        "Postman-Token": "c9d58bcf-0510-47c8-acf0-78816e35fadb"
-    ]
-    
-    let postData = NSData(data: """
-    {
-        "mode": "sync",
-        "messageType": "35970b0909ffb71c3f4f",
-        "messages": [
-            {
-            "timestamp": "\(timestamp)",
-            "description": "\(data_frames)",
-            "incident_code": "Vegetation"
-            }
-        ]
-    }
-    """.data(using: String.Encoding.utf8)!)
-
-    let request = NSMutableURLRequest(url: NSURL(string: "https://iotmmsp2000319942trial.hanatrial.ondemand.com/com.sap.iotservices.mms/v1/api/http/data/80c04384-651e-4420-9ed4-a56f52d0c805")! as URL,
-                                      cachePolicy: .useProtocolCachePolicy,
-                                      timeoutInterval: 10.0)
-    request.httpMethod = "POST"
-    request.allHTTPHeaderFields = headers
-    request.httpBody = postData as Data
-
-    let session = URLSession.shared
-    let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-        if (error != nil) {
-            print(error)
-        } else {
-            let httpResponse = response as? HTTPURLResponse
-            print(httpResponse)
-        }
-    })
-
-    dataTask.resume()
 }
