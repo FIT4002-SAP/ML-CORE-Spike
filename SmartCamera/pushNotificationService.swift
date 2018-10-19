@@ -25,7 +25,7 @@ func pushDB(timestamp: String, data_frames: String){
         {
         "timestamp": "\(timestamp)",
         "description": "\(data_frames)",
-        "incident_code": "Vegetation"
+        "incident_code": "VEGETATION"
         }
         ]
         }
@@ -51,7 +51,7 @@ func pushDB(timestamp: String, data_frames: String){
     dataTask.resume()
 }
 
-func pushNoti(alert: String, data_frames: [String]) {
+func pushNoti(alert: String, data_frames: String) {
     let headers = [
         "Content-Type": "application/json",
         "Authorization": "Basic Zml0NDAwMi5pbnRlbGxpZ2VuY2VAZ21haWwuY29tOjIwMThGSVQ0MDAyPw==",

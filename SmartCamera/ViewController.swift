@@ -32,7 +32,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         StopScanBtn.isHidden = true
         ScanBtn.isHidden = false
         if (!dataFrames.isEmpty){
-            pushNoti(alert:"Detected Object", data_frames: dataFrames[0])
+            pushNoti(alert:"Detected Object", data_frames: "\(dataFrames[0][0])")
             pushDB(timestamp: String(Int(NSDate().timeIntervalSince1970.rounded())),
                    data_frames: "\(dataFrames[0][0]),\(dataFrames[0][1])")
         }
@@ -95,7 +95,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     let synth = AVSpeechSynthesizer()
                     synth.speak(utterance)
                     
-                    self.dataFrames.append([obj_name,"\(firstObservation.confidence)"])
+                    self.dataFrames.append([obj_name.uppercased(),"\(firstObservation.confidence)"])
                 }
             }
         }
