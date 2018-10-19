@@ -6,4 +6,4 @@
  3. To receive notification, device has to be registered on SAP mobile application.
  
  Architecture:
-![Screenshot](artefacts/architecture.png) 
+<img src="artefacts/architecture.png" width="200">
