@@ -19,7 +19,7 @@ func pushDB(timestamp: String, data_frames: String){
     
     let postData = NSData(data: """
         {
-        "mode": "sync",
+        "mode": "async",
         "messageType": "35970b0909ffb71c3f4f",
         "messages": [
         {
